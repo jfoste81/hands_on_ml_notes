@@ -1,22 +1,38 @@
 # Table of Contents 
-1. [Chapter 1](#chapter-1)
-    * [What is Machine Learning](#what-is-machine-learning)
-    * [Why Use Machine Learning?](#why-use-machine-learning)
-        * [Examples](#examples)
-    * [Types of Machine Learning Systems](#types-of-machine-learning-systems)
-        * [Training Supervision](#training-supervision)
-            1. [Supervised Learning](#1-supervised-learning)
-            2. [Unsupervised Learning](#2-unsupervised-learning)
-            3. [Semi-Supervised Learning](#3-semi-supervised-learning)
-            4. [Self-Supervised Learning](#4-self-supervised-learning)
-            5. [Reinforcement Learning](#5-reinforcement-learning)
-        * [Batch VS Online Learning](#batch-vs-online-learning)
-            * [Batch Learning](#batch-learning)
-            * [Online Learning](#online-learning)
-        * [Instance-Based Learning vs Model-Based Learning](#instance-based-vs-model-based-learning)
-            * [Instance-Based Learning](#instance-based-learning)
-            * [Model-based learning and typical machine learning workflow](#model-based-learning-and-typical-machine-learning-workflow)
-    * [Main Challenges of Machine Learning](#main-challenges-of-machine-learning)
+<!-- TOC -->
+<!-- /TOC -->
+- [Table of Contents](#table-of-contents)
+- [Chapter 1](#chapter-1)
+  - [What is Machine Learning](#what-is-machine-learning)
+  - [Why Use Machine Learning?](#why-use-machine-learning)
+    - [Examples](#examples)
+  - [Types of Machine Learning Systems](#types-of-machine-learning-systems)
+    - [Training Supervision](#training-supervision)
+      - [1. Supervised Learning](#1-supervised-learning)
+      - [2. Unsupervised Learning](#2-unsupervised-learning)
+      - [3. Semi-Supervised Learning](#3-semi-supervised-learning)
+      - [4. Self-Supervised Learning](#4-self-supervised-learning)
+      - [5. Reinforcement Learning](#5-reinforcement-learning)
+    - [Batch VS Online Learning](#batch-vs-online-learning)
+      - [Batch Learning](#batch-learning)
+      - [Online Learning](#online-learning)
+    - [Instance-Based VS Model-Based Learning](#instance-based-vs-model-based-learning)
+      - [Instance-based learning](#instance-based-learning)
+      - [Model-based learning and typical machine learning workflow](#model-based-learning-and-typical-machine-learning-workflow)
+  - [Main Challenges of Machine Learning](#main-challenges-of-machine-learning)
+    - [Insufficient Quantity of Training Data](#insufficient-quantity-of-training-data)
+    - [Nonrepresentative Training Data](#nonrepresentative-training-data)
+    - [Poor-Quality Data](#poor-quality-data)
+    - [Irrelevant features](#irrelevant-features)
+    - [Overfitting the Training Data](#overfitting-the-training-data)
+    - [Underfitting the Training Data](#underfitting-the-training-data)
+  - [Testing and Validating](#testing-and-validating)
+    - [Hyperparameter Tuning and Model Selection](#hyperparameter-tuning-and-model-selection)
+    - [Data Mismatch](#data-mismatch)
+      - [No Free Lunch Theorem](#no-free-lunch-theorem)
+  - [Exercises](#exercises)
+- [Chapter 2](#chapter-2)
+
 
 # Chapter 1
 
@@ -118,7 +134,7 @@
 
 * Training set has labeled AND unlabeled instances. The data set is considered partially labelled. 
 
-![Partially Labeled Set](images/1-11.png)
+![Partially Labeled Set](images/1_11.png)
 
 * Google Photos does this by recognizing Person A in pictures 1, 5, and 11, while Person B shows up in 2, 5, and 7. This part of the algorithm is *unsupervised* (clustering). The system might ask you to label these people, and once you add one label per person it will be able to name everyone in every photo. This can be used later to search for people in photos.
 
@@ -251,8 +267,216 @@ $$
 3.75 + 6.78 \times 10^{-5} \times 37,655 = 6.30
 $$ 
 
- If we had instead using an instance-based learning algorithm, we would have found Israel has the closest GDP per capita to that of Cyprus with a life satisfaction of 7.2. This would have resulted in a life satisfaction of 7.2 for Cyprus. Zooming out a bit and looking at the two next-closest countries, you find Lithuania and Slovenia with a life satisfaction of 5.9 each. Averaging out the three satisfaction values would give 6.33, which is close to the model-based prediction. This simple algorithm is called k-nearest neighbors regression where, in this example, k = 3.
+ If we had instead using an instance-based learning algorithm, we would have found Israel has the closest GDP per capita to that of Cyprus with a life satisfaction of $7.2$. This would have resulted in a life satisfaction of $7.2$ for Cyprus. Zooming out a bit and looking at the two next-closest countries, you find Lithuania and Slovenia with a life satisfaction of $5.9$ each. Averaging out the three satisfaction values would give $6.33$, which is close to the model-based prediction. This simple algorithm is called **k-nearest neighbors** regression where, in this example, $k = 3$.
 
 
 ## Main Challenges of Machine Learning
 
+### Insufficient Quantity of Training Data 
+
+* Due to the complexity of learning for a system, even for simple problems you typically need thousands of examples. For complex problems such as image or speech recognition, this number can go into the millions. 
+
+    * In a famous paper pubished in 2001 by Microsoft researchers, it found that very different machine learning algorithms performed almost identically well on a complex problem of natural language disambiguation once they were given enough data.
+    * The authors noted "these results suggest that we may want to reconsider the trade-off between spending time and money on algorithm development versus spending it on corpus development".
+    * The idea that data matters more than algorithms for complex problems was further popularized by a paper titled "The Unreasonable Effectiveness of Data" and published in 2009. 
+      * It should be noted that small and medium-sized datasets are still very much common and it is not always easy or cheap to collect training data. 
+
+### Nonrepresentative Training Data
+
+* It is imperative that your training data be representative of the new cases that you want to generalize to. 
+
+* In our earlier examples of life satisfaction and country GDP per capita, it was not entirely representative as it did not contain any country with a GDP per capita lower than $\$23,500$ or higher than $\$62,500$. 
+  * The figure below shows what would happen if such countries were included in the dataset:
+  ![More representative training sample](images/1_22.png)
+  * If you train a linear model on the new data, the result would be the solid line, whereas our old model is represented by the dotted line. Excluding the countries we just added not only alters the model, but makes it clear that a simple linear model will not work well in this instance. \
+    * By using a nonrepresentative training set, our old model is unlikely to make accurate predictions. 
+* It is crucial to use training sets that are representative. 
+  * If sample is too small, you will have **sampling noise**
+    * nonrepresentative data as a result of chance
+  * If sample method is flawed, the dataset can be nonrepresentative due to **sampling bias**
+    * US Presidential Election of 1936
+      * Literary Digest conducted a poll that sent mail out to 10 million people with 2.4 million responses. Predicted with high confidence that Republican would win with 57% of votes. The actual result was the Democrat winning with 62% of votes. 
+      * They sent the polls using telephone directories, magazine subscribers, club members, and similar citizens. All of these groups were more likely to be wealthy, and as a result were more likely to vote Republican. 
+      * Less than 25% of people answered the poll. This introduced a separate sampling bias by potentially ruling out parts of the population that didn't care for politics, people who did not like Literary Digest, and other groups. This type of sampling bias is called **nonresponse bias**. 
+### Poor-Quality Data 
+
+* If your training data is full of errors, outliers, and noise it will make it harder for the system to detect the underlying patterns. 
+  * If some instances are clearly outliers, it may help to simply discard them or try to fix the errors manually
+  * If some instances are missing a few features, you must decide if you want to ignore the attribute altogether, ignore those instances, or fill in the missing values, or train one model with the feature and one model without it
+
+### Irrelevant features
+
+* System will only be capable of learning if the training data contains enough relevant features and not too many irrelevant ones. 
+
+* **Feature Engineering**:
+  * **Feature Selection** → selecting the most useful features to train on among existing features
+  * **Feature Extraction** → combining existing features to produce a more useful one; think of dimensionality reduction algorithms
+  * Creating new features by gathering new data
+
+### Overfitting the Training Data
+
+* The model performs well on the training data, but does not generalize well
+![Overfitting the training data](images/1_23.png)
+
+* Overfitting happens when the model is too complex relative to the amount and noisiness of the training data. Solutions: 
+  * Simplify the model by selecting one with fewer parameters (linear model vs high-degree polynomial model), by reducing the number of attribute in the training data, or by constraining the model
+  * Gather more training data
+  * Reduce noise in the training data (fix data and remove outliers)
+
+* Constraining and simplifying a model to reduce the risk of overfitting is called **regularization**. 
+  * In the earlier linear model we created, it had two parameters, $\theta_0$ and $\theta_1$. This gives the algorithm two **degrees of freedom** to adapt the model to the training data
+    * It can tweak both the height ($\theta_0$) and the slope ($\theta_1$) of the line. 
+  * If we forced $\theta_1 = 0$, then the algorithm would only have one degree of freedom and would have a much harder time fitting the data properly. This would likely result in some simple solution, like a mean. 
+
+* Find the right balance between fitting the training data perfectly and keeping the model simple enough to ensure that it will generalize well. 
+
+![Regularization reducing risk of Overfitting](images/1_24.png)
+
+* In the figure above: 
+  * The dotted lines represent the original model that was trained on the countries represented as circles (without the countries represented as squares).
+  * The solid line is our second model trained with ALL countries (circles and squares)
+  * The dashed line is a model trained with the same data as the first model, but with a regularization constraint. This constraint forced the model to have a smaller slope. This model does not fit the training data (circles) as well as the first model, but generalizes better to new examples (squares). 
+
+* The amount of regularization applied during learning can be controlled by a **hyperparameter**. It is a parameter of the learning algorithm (not of the model) and, as such, is not affected by the algorithm itself. It must be set prior to training and remains constant during the training. 
+  * A high hyperparameter will result with a flat model (a slope close to zero). It will not overfit, but will not usually find a good solution
+
+### Underfitting the Training Data
+
+* The opposite of overfitting (duh), your model is too simple to learn the underlying structure of the data. The main options for solutions are:
+  * Selecting a more powerful model, with more parameters
+  * Better features for the learning algorithm (**feature engineering**)
+  * Reduce constraints on the model (ie. reducing the regularization hyperparameter)
+
+## Testing and Validating
+
+* Split your data into two sets, **training set** and **test set**.  
+  * The error rate on new cases is called the **generalization error** or **out-of-sample error**.
+    * Can find an estimate of this error by evaluating how the model performs with the test set and indicates how well your model with perform on instances it has never seen before.
+  * If the training error is low, but the generalization error is high, then your model is *Overfitting* the training data. 
+  * It is common to do an 80/20 split for training and test data. However, if you have many instances, say 10 million, then holding out 1% means your test set will still contain 100,00 instances. This can be more than enough to get a good estimate of the generalization error.
+
+### Hyperparameter Tuning and Model Selection
+
+* Sometimes we can hyperfixate on the results from our singular training set. Our model may outperform its potential on one particular set. 
+  * A common solution to this problem is **holdout validation**
+    * Simply hold out part of the training set to evaluate several candidate models and select the best one
+    * The new heldout set is called the **validation set** (or **development/dev set**)
+    * More specifically, you can train multiple models with different hyperparameters on the reduced training set and select the model that performs the best on the validation set. After this holdout validation process, you train the best model on the full training set (including validation set) and this gives you your final model. 
+    * Lastly, you evaluate this final model on the test set to get an estimate of the generalization error
+
+![Model Selection with holdout validation](images/1_25.png)
+
+* This solution can work quite well, but if the validation set is too small then the model evaluations will be imprecise. If the validation set is too large, the remaining training set will be smaller than the full training set. This is not ideal as you will be comparing candidate models trained on a much smaller training set. 
+  * This can be solved by performing repeated **cross-validation**, using many small validation sets. 
+    * Each model is evaluated once per validation set after it is trained on the rest of the data. You can average out the evaluations of the model to get an accurate measure of its performance. The only drawback is that the training time is a factor of the number of validation sets. 
+
+### Data Mismatch
+
+* Sometimes it is easy to get a large dataset, but not all instances will be perfectly representative of what you may be training or testing for. 
+  * The most important rule is that both the validation and test sets MUST be as representative as possible of the data you expect to use in production. 
+  * If you unknowingly input bad or unrepresentative data, it will be hard to distinguish if the model is overfitting the training set or if there is a mismatch within the data itself. 
+
+* One solution is to hold out some of the training data in another set that has been dubbed a **train-dev set** (shown below).
+
+    ![Train-Dev Set Figure](images\1_26.png)
+
+* After the model is trained on the training set, you can evaluate it on the train-dev set. 
+  * If the model performs poorly, then it must have overfit the training set, which can be fixed by simplifying or regularizing the model, getting more training data, and cleaning up the training data. 
+  * If the model performs well on the train-dev set, then you can evaluate the model on the dev set
+    * If it performs poorly, then the problem must be coming from a data mismatch. 
+
+#### No Free Lunch Theorem
+
+* A model is a simplified representation of data. These simplifications are meant to discard the superflous details that are unlikely to generalize new instances. When you select a type of model, you implicitly make assumptions about the data. 
+
+* In a 1996 paper, David Wolpert demonstrated that if you make ZERO assumptions about the data, then there is no reason to prefer one model over any other. This is the **No Free Lunch Theorem**. 
+  * For some datasets the best model is a linear one, for others it may be a neural network. There is no model that is guaranteed to work better. The only way to know is to evaluate them all. 
+    * However, this is not possible. In practice you make reasonable assumptions about the data and evaluate only a few "reasonable" models. 
+
+## Exercises
+
+1. How would you define machine learning?
+
+    Machine Learning can be defined as  building systems that can learn from data to perform a task, given some measure or evaluation of performance. 
+
+2. Can you name four types of applications where it shines?
+    
+    * Complex problems where there is no algorithmic solution, replacing solutions that require a laundry list of complicated rules, building systems to evaluate and handle volatile environments, and assisting humans in learning and analyzing. 
+
+3. What is a labeled training set?
+    
+    * A labeled training set is a dataset where the instances within the training set have been labeled with the desired classification of the instance. 
+
+4. What are the two most common supervised tasks?
+    
+    * Regression and Clasification  
+
+5. Can you name four common unsupervised tasks?
+    
+    * 
+
+6. What type of algorithm would you use to allow a robot to walk in
+various unknown terrains?
+    
+    * Reinforcement Learning
+
+7. What type of algorithm would you use to segment your customers into
+multiple groups?
+    
+    * You can use either clustering algorithms (unsupervised learning) or classification algorithms (supervised learning) depending on if you have prococeived labels for these groups. 
+
+8. Would you frame the problem of spam detection as a supervised
+learning problem or an unsupervised learning problem?
+    
+    * Supervised as spam detection programs are fed example emails of either spam or ham.  
+
+9. What is an online learning system?
+    
+    * A system that learns incrementally based on newly inputted data instances. 
+
+10. What is out-of-core learning?
+    
+    * Learning that occurs outside of a system's main memory. It will subdivide groups of data and learn from them via online learning. 
+
+11. What type of algorithm relies on a similarity measure to make
+predictions?
+    
+    * Instance-based algorithms rely on similarity measures. 
+
+12. What is the difference between a model parameter and a model
+hyperparameter?
+    
+    * A model parameter can be adjusted while learning for generalization of new instances, but a model hyperparameter is a parameter that must be set prior to learning and is static throughout the learning process as it a parameter of the algorithm rather than the model. 
+
+13. What do model-based algorithms search for? What is the most common
+strategy they use to succeed? How do they make predictions?
+    
+    * Model-based algorithms search for values for the model parameters so that the model will generalize to new instances accurately. This is usually accomplished via cost function with penalities depending on regularization. To predict, we input new instances into the model predictive function to see if the new instances stay aligned with the function itself. 
+
+1.  Can you name four of the main challenges in machine learning?
+    
+    * Overfitting and Underfitting of Data, Poor Quality Data, and Irrelevant Features. 
+
+15. If your model performs great on the training data but generalizes poorly
+to new instances, what is happening? Can you name three possible
+solutions?
+
+    * Overfitting is occurring in this instance. Three solutions are to simplify the model via regularization, collecting more data, or reducing the noise within the data. 
+
+16. What is a test set, and why would you want to use it?
+    
+    * A test set is a portion of the data that we test our models on after they have performed well with the training and potentially the validation sets. You want to use the test set to estimate the generalization error of a model. 
+
+17. What is the purpose of a validation set?
+    
+    * A validation set is a portion of the training set that is used to test multiple models at one time to see which one will perform well enough to be passed onto the training and potentially test sets. It is also used to adjust hyperparameters. 
+
+18. What is the train-dev set, when do you need it, and how do you use it?
+    
+    * The train-dev set is used to evaluate the risk of data mismatch within a training set and the data within testing or validation sets. It is part of the training set that is held out. The model is then trained on the reminaing training set data and evaluated on the train-dev and validation sets. If it performs well on the training, but not on the train-dev then it is likely overfitting. If it performs well on training and train-dev, but not on the validation set then there is likely a data mismatch and steps should be taken to improve the representativeness of the training data.
+
+19. What can go wrong if you tune hyperparameters using the test set?
+    
+    * You might overfit the test set and cause the model to overperform with the generalization error relative to your set, and the model will suffer in production. 
+
+# Chapter 2
