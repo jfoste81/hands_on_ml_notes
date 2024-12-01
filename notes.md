@@ -200,7 +200,7 @@
 
 ![Instance-Based Learning Figure](images/1_16.png)
 
-    In the above figure, the new instance would be classified as a triangle as the majority of most similar instances belong to the triangle class. 
+ In the above figure, the new instance would be classified as a triangle as the majority of most similar instances belong to the triangle class. 
 
 #### Model-based learning and typical machine learning workflow 
 
@@ -251,7 +251,7 @@ $$
 3.75 + 6.78 \times 10^{-5} \times 37,655 = 6.30
 $$ 
 
-    If we had instead using an instance-based learning algorithm, we would have found Israel has the closest GDP per capita to that of Cyprus with a life satisfaction of 7.2. This would have resulted in a life satisfaction of 7.2 for Cyprus. Zooming out a bit and looking at the two next-closest countries, you find Lithuania and Slovenia with a life satisfaction of 5.9 each. Averaging out the three satisfaction values would give 6.33, which is close to the model-based prediction. This simple algorithm is called k-nearest neighbors regression where, in this example, k = 3.
+ If we had instead using an instance-based learning algorithm, we would have found Israel has the closest GDP per capita to that of Cyprus with a life satisfaction of 7.2. This would have resulted in a life satisfaction of 7.2 for Cyprus. Zooming out a bit and looking at the two next-closest countries, you find Lithuania and Slovenia with a life satisfaction of 5.9 each. Averaging out the three satisfaction values would give 6.33, which is close to the model-based prediction. This simple algorithm is called k-nearest neighbors regression where, in this example, k = 3.
 
 
 ## Main Challenges of Machine Learning
