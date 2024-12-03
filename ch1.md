@@ -1,41 +1,35 @@
-# Table of Contents 
-<!-- TOC -->
-<!-- /TOC -->
-- [Table of Contents](#table-of-contents)
-- [Chapter 1](#chapter-1)
-  - [What is Machine Learning](#what-is-machine-learning)
-  - [Why Use Machine Learning?](#why-use-machine-learning)
-    - [Examples](#examples)
-  - [Types of Machine Learning Systems](#types-of-machine-learning-systems)
-    - [Training Supervision](#training-supervision)
-      - [1. Supervised Learning](#1-supervised-learning)
-      - [2. Unsupervised Learning](#2-unsupervised-learning)
-      - [3. Semi-Supervised Learning](#3-semi-supervised-learning)
-      - [4. Self-Supervised Learning](#4-self-supervised-learning)
-      - [5. Reinforcement Learning](#5-reinforcement-learning)
-    - [Batch VS Online Learning](#batch-vs-online-learning)
-      - [Batch Learning](#batch-learning)
-      - [Online Learning](#online-learning)
-    - [Instance-Based VS Model-Based Learning](#instance-based-vs-model-based-learning)
-      - [Instance-based learning](#instance-based-learning)
-      - [Model-based learning and typical machine learning workflow](#model-based-learning-and-typical-machine-learning-workflow)
-  - [Main Challenges of Machine Learning](#main-challenges-of-machine-learning)
-    - [Insufficient Quantity of Training Data](#insufficient-quantity-of-training-data)
-    - [Nonrepresentative Training Data](#nonrepresentative-training-data)
-    - [Poor-Quality Data](#poor-quality-data)
-    - [Irrelevant features](#irrelevant-features)
-    - [Overfitting the Training Data](#overfitting-the-training-data)
-    - [Underfitting the Training Data](#underfitting-the-training-data)
-  - [Testing and Validating](#testing-and-validating)
-    - [Hyperparameter Tuning and Model Selection](#hyperparameter-tuning-and-model-selection)
-    - [Data Mismatch](#data-mismatch)
-      - [No Free Lunch Theorem](#no-free-lunch-theorem)
-  - [Exercises](#exercises)
-- [Chapter 2](#chapter-2)
+<font size=6>**Chapter 1 - The Machine Learning Landscape**</font>
 
+<font size=4>**Table of Contents**</font>
 
-# Chapter 1
-
+- [What is Machine Learning](#what-is-machine-learning)
+- [Why Use Machine Learning?](#why-use-machine-learning)
+  - [Examples](#examples)
+- [Types of Machine Learning Systems](#types-of-machine-learning-systems)
+  - [Training Supervision](#training-supervision)
+    - [1. Supervised Learning](#1-supervised-learning)
+    - [2. Unsupervised Learning](#2-unsupervised-learning)
+    - [3. Semi-Supervised Learning](#3-semi-supervised-learning)
+    - [4. Self-Supervised Learning](#4-self-supervised-learning)
+    - [5. Reinforcement Learning](#5-reinforcement-learning)
+  - [Batch VS Online Learning](#batch-vs-online-learning)
+    - [Batch Learning](#batch-learning)
+    - [Online Learning](#online-learning)
+  - [Instance-Based VS Model-Based Learning](#instance-based-vs-model-based-learning)
+    - [Instance-based learning](#instance-based-learning)
+    - [Model-based learning and typical machine learning workflow](#model-based-learning-and-typical-machine-learning-workflow)
+- [Main Challenges of Machine Learning](#main-challenges-of-machine-learning)
+  - [Insufficient Quantity of Training Data](#insufficient-quantity-of-training-data)
+  - [Nonrepresentative Training Data](#nonrepresentative-training-data)
+  - [Poor-Quality Data](#poor-quality-data)
+  - [Irrelevant features](#irrelevant-features)
+  - [Overfitting the Training Data](#overfitting-the-training-data)
+  - [Underfitting the Training Data](#underfitting-the-training-data)
+- [Testing and Validating](#testing-and-validating)
+  - [Hyperparameter Tuning and Model Selection](#hyperparameter-tuning-and-model-selection)
+  - [Data Mismatch](#data-mismatch)
+    - [No Free Lunch Theorem](#no-free-lunch-theorem)
+- [Exercises](#exercises)
 
 ## What is Machine Learning 
 
@@ -478,5 +472,3 @@ solutions?
 19. What can go wrong if you tune hyperparameters using the test set?
     
     * You might overfit the test set and cause the model to overperform with the generalization error relative to your set, and the model will suffer in production. 
-
-# Chapter 2
